@@ -1,0 +1,16 @@
+.nav-item {
+    line-height: 31px
+}
+
+a.nav-link {
+    button {
+        line-height: 1.3;
+        margin-top: -5px
+    }
+    &.active {
+        button {
+            color: white;
+            background: #007bff
+        }
+    }
+}
