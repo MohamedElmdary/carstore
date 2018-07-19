@@ -14,7 +14,7 @@ class Form extends Component {
 
         if (changedControl.type === "email") {
             // eslint-disable-next-line
-            const reg = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i;
             changedControl.validation.valid = reg.test(String(event.target.value).toLowerCase())
         } else {
             changedControl.validation.valid = event.target.value.length >= changedControl.validation.minLength ? true : false;
@@ -48,7 +48,7 @@ class Form extends Component {
                                                             changedHandler={(event) => this.changedHandler(event, control.id)}/>
                                     })}
                                     {this.props.children}
-                                    <button type="button" className="btn btn-block btn-primary">Submit</button>
+                                    <button type="submit" className="btn btn-block btn-primary" onClick={this.props.onSubmitForm}>{this.props.submitName}</button>
                                 </form>
                             </div>
                         </div>

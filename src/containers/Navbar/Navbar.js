@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import NavbarItem from '../../components/NavbarItem/NavbarItem';
+import { connect } from 'react-redux';
 import './Navbar.scss';
 
 class Navbar extends Component {
 
-    state = {
-        navBarItems: [
-            {name: "home", to: "/"},
+    render() {
+        const navBarItems = [
+            {name: "home", to: "/", exact: true},
             {name: "products", to: "/products"},
-            {name: "contact", to: "/contact"},
-            {name: "login", to: "/login", btn: true},
-        ]
-    }
-
-    render() { 
-
-        const items = this.state.navBarItems.map(item => (
-            <NavbarItem key={item.name} 
-                        btn={item.btn} 
+            {name: "contact", to: "/contact"}, 
+            this.props.token ? null : {name: "login", to: "/login", btn: true}
+        ];
+        
+        const items = navBarItems.map(item => {
+            if (item === null) return null;
+            return <NavbarItem 
+                        key={item.name} 
+                        exact={item.exact}
+                        btn={item.btn}
                         name={item.name} 
-                        to={item.to}/>
-        ));
+                        to={item.to}/>;
+        });
 
         return (
             <nav className="navbar navbar-expand-lg  navbar navbar-dark bg-dark">
@@ -39,5 +40,11 @@ class Navbar extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token !== null ? true : false
+    }
+};
  
-export default Navbar;
+export default connect(mapStateToProps)(Navbar);

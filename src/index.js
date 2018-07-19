@@ -5,15 +5,18 @@ import registerServiceWorker from './registerServiceWorker';
 import '../node_modules/bootstrap/scss/bootstrap.scss';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './store/auth/auth.reducer';
+
+// const composeEnhancers = process.env.NODE_ENV === 'development' ? (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose) : null;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
     combineReducers({
         auth: authReducer
     }),
-    applyMiddleware(thunk)
+    composeEnhancers(applyMiddleware(thunk))
 )
 
 const app = (

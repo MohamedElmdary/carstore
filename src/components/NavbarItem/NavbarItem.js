@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const navbarItem = (props) => {
     let item = (
         <li className="nav-item">
-            <NavLink exact to={props.to} className="nav-link">{props.name.toUpperCase()}</NavLink>
+            <NavLink exact={props.exact} to={props.to} className="nav-link">{props.name.toUpperCase()}</NavLink>
         </li>
     );
     if (props.btn) {
